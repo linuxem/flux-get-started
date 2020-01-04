@@ -28,8 +28,27 @@ kind: Service
 apiVersion: v1
 metadata:
   name: nginx-service
+  namespace: nginx
 spec:
   selector:
     app: nginx
   ports:
-    - port: 80  #5678 #Default port for image
+    - port: 80 
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: example-ingress
+  namespace: nginx
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - http:
+      paths:
+        - path: /nginx
+          backend:
+            serviceName: nginx-service
+            servicePort: 80
