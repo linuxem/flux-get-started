@@ -22,3 +22,14 @@ spec:
         image: nginx:1.7.9
         ports:
         - containerPort: 80
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: nginx-service
+spec:
+  selector:
+    app: nginx
+  ports:
+    - port: 80  #5678 #Default port for image
